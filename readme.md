@@ -46,7 +46,7 @@ Type: `number`
 
 #### precision
 
-Type: `number` (positive integer)
+Type: `number` (integer)
 
 Number of decimal places.
 

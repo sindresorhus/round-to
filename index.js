@@ -6,11 +6,15 @@ function round(fn, x, precision) {
 		throw new TypeError('Expected value to be a number');
 	}
 
-	if (!numberIsInteger(precision) || precision < 0) {
-		throw new TypeError('Expected precision to be a positive integer');
+	if (!numberIsInteger(precision)) {
+		throw new TypeError('Expected precision to be an integer');
 	}
 
-	return Number(Math[fn](x + 'e' + precision) + 'e-' + precision);
+	var exponent = precision > 0 ? 'e' : 'e-';
+	var exponentNeg = precision > 0 ? 'e-' : 'e';
+	precision = Math.abs(precision);
+
+	return Number(Math[fn](x + exponent + precision) + exponentNeg + precision);
 }
 
 var fn = module.exports = round.bind(null, 'round');
