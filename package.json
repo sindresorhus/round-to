@@ -1,6 +1,6 @@
 {
   "name": "round-to",
-  "version": "1.1.0",
+  "version": "1.0.0",
   "description": "Round a number to a specific number of decimal places: 1.234 → 1.2",
   "license": "MIT",
   "repository": "sindresorhus/round-to",
