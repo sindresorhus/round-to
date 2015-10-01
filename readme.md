@@ -25,6 +25,12 @@ roundTo.down(1.234, 2);
 //=> 1.23
 ```
 
+Numbers are rounded to a specific number of significant figures. Specifying a negative precision will round to any number of places to the left of the decimal.
+
+```js
+roundTo(1234.56, -2);
+//=> 1200
+```
 
 ## API
 
