@@ -17,6 +17,6 @@ function round(fn, x, precision) {
 	return Number(Math[fn](x + exponent + precision) + exponentNeg + precision);
 }
 
-var fn = module.exports = round.bind(null, 'round');
-fn.up = round.bind(null, 'ceil');
-fn.down = round.bind(null, 'floor');
+module.exports = round.bind(null, 'round');
+module.exports.up = round.bind(null, 'ceil');
+module.exports.down = round.bind(null, 'floor');
