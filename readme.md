@@ -13,7 +13,7 @@ $ npm install --save round-to
 ## Usage
 
 ```js
-var roundTo = require('round-to');
+const roundTo = require('round-to');
 
 roundTo(1.234, 2);
 //=> 1.23
@@ -59,4 +59,4 @@ Number of decimal places.
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
