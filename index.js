@@ -17,6 +17,7 @@ function round(fn, x, precision) {
 	if (fn === 'round') {
 		return Number(Math.sign(x) * (Math[fn](Math.abs(x) + exponent + precision) + exponentNeg + precision));
 	}
+	
 	return Number(Math[fn](x + exponent + precision) + exponentNeg + precision);
 }
 
