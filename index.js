@@ -14,6 +14,10 @@ function round(fn, x, precision) {
 	var exponentNeg = precision > 0 ? 'e-' : 'e';
 	precision = Math.abs(precision);
 
+	if (fn === 'round') {
+		return Number(Math.sign(x) * (Math.round(Math.abs(x) + exponent + precision) + exponentNeg + precision));
+	}
+
 	return Number(Math[fn](x + exponent + precision) + exponentNeg + precision);
 }
 
