@@ -30,7 +30,7 @@
     "increment"
   ],
   "dependencies": {
-    "number-is-integer": "^1.0.1"
+    "number-is-integer": "^1.0.0"
   },
   "devDependencies": {
     "ava": "*",
