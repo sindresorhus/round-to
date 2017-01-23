@@ -10,7 +10,7 @@
     "url": "sindresorhus.com"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4"
   },
   "scripts": {
     "test": "xo && ava"
@@ -29,9 +29,6 @@
     "math",
     "increment"
   ],
-  "dependencies": {
-    "number-is-integer": "^1.0.0"
-  },
   "devDependencies": {
     "ava": "*",
     "xo": "*"

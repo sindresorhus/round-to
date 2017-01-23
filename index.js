@@ -1,26 +1,25 @@
 'use strict';
-var numberIsInteger = require('number-is-integer');
 
-function round(fn, x, precision) {
-	if (typeof x !== 'number') {
+function round(fn, val, precision) {
+	if (typeof val !== 'number') {
 		throw new TypeError('Expected value to be a number');
 	}
 
-	if (!numberIsInteger(precision)) {
+	if (!Number.isInteger(precision)) {
 		throw new TypeError('Expected precision to be an integer');
 	}
 
-	var exponent = precision > 0 ? 'e' : 'e-';
-	var exponentNeg = precision > 0 ? 'e-' : 'e';
+	const exponent = precision > 0 ? 'e' : 'e-';
+	const exponentNeg = precision > 0 ? 'e-' : 'e';
 	precision = Math.abs(precision);
 
 	if (fn === 'round') {
-		return Number(Math.sign(x) * (Math.round(Math.abs(x) + exponent + precision) + exponentNeg + precision));
+		return Number(Math.sign(val) * (Math.round(Math.abs(val) + exponent + precision) + exponentNeg + precision));
 	}
 
-	return Number(Math[fn](x + exponent + precision) + exponentNeg + precision);
+	return Number(Math[fn](val + exponent + precision) + exponentNeg + precision);
 }
 
-var fn = module.exports = round.bind(null, 'round');
-fn.up = round.bind(null, 'ceil');
-fn.down = round.bind(null, 'floor');
+module.exports = round.bind(null, 'round');
+module.exports.up = round.bind(null, 'ceil');
+module.exports.down = round.bind(null, 'floor');
