@@ -14,17 +14,17 @@ function round(method, input, precision) {
 		input = Math.abs(input);
 	}
 
-	let pair = `${input}e`.split('e');
-	let value = Math[method](`${pair[0]}e${Number(pair[1]) + precision}`);
+	let [number, exponent] = `${input}e`.split('e');
+	let ret = Math[method](`${number}e${Number(exponent) + precision}`);
 
-	pair = `${value}e`.split('e');
-	value = Number(`${pair[0]}e${Number(pair[1]) - precision}`);
+	[number, exponent] = `${ret}e`.split('e');
+	ret = Number(`${number}e${Number(exponent) - precision}`);
 
 	if (isRoundingAndNegative) {
-		value = -value;
+		ret = -ret;
 	}
 
-	return value;
+	return ret;
 }
 
 module.exports = round.bind(null, 'round');
