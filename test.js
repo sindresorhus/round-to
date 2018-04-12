@@ -1,5 +1,5 @@
 import test from 'ava';
-import m from './';
+import m from '.';
 
 test('roundTo()', t => {
 	t.is(m(0.129, 3), 0.129);
@@ -9,6 +9,8 @@ test('roundTo()', t => {
 	t.is(m(1.005, 0), 1);
 	t.is(m(111.1, -2), 100);
 	t.is(m(-0.375, 2), -0.38);
+	t.false(Number.isNaN(m(10000000000000, 8)));
+	t.is(m(0.37542323423423432432432432432, 8), 0.37542323);
 });
 
 test('roundTo.up()', t => {
