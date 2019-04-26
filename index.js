@@ -1,7 +1,7 @@
 'use strict';
 
-function round(method, input, precision) {
-	if (typeof input !== 'number') {
+function round(method, number, precision) {
+	if (typeof number !== 'number') {
 		throw new TypeError('Expected value to be a number');
 	}
 
@@ -9,22 +9,23 @@ function round(method, input, precision) {
 		throw new TypeError('Expected precision to be an integer');
 	}
 
-	const isRoundingAndNegative = method === 'round' && input < 0;
+	const isRoundingAndNegative = method === 'round' && number < 0;
 	if (isRoundingAndNegative) {
-		input = Math.abs(input);
+		number = Math.abs(number);
 	}
 
-	let [number, exponent] = `${input}e`.split('e');
-	let ret = Math[method](`${number}e${Number(exponent) + precision}`);
+	let exponent;
+	[number, exponent] = `${number}e`.split('e');
+	let result = Math[method](`${number}e${Number(exponent) + precision}`);
 
-	[number, exponent] = `${ret}e`.split('e');
-	ret = Number(`${number}e${Number(exponent) - precision}`);
+	[number, exponent] = `${result}e`.split('e');
+	result = Number(`${number}e${Number(exponent) - precision}`);
 
 	if (isRoundingAndNegative) {
-		ret = -ret;
+		result = -result;
 	}
 
-	return ret;
+	return result;
 }
 
 module.exports = round.bind(null, 'round');

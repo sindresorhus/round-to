@@ -25,7 +25,7 @@ roundTo.down(1.234, 2);
 //=> 1.23
 ```
 
-Numbers are rounded to a specific number of fractional digits. Specifying a negative precision will round to any number of places to the left of the decimal.
+Numbers are rounded to a specific number of fractional digits. Specifying a negative `precision` will round to any number of places to the left of the decimal.
 
 ```js
 roundTo(1234.56, -2);
@@ -34,19 +34,19 @@ roundTo(1234.56, -2);
 
 ## API
 
-### roundTo(value, precision)
+### roundTo(number, precision)
 
 Round the decimals with [`Math.round`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round).
 
-### roundTo.up(value, precision)
+### roundTo.up(number, precision)
 
 Round up the decimals with [`Math.ceil`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil).
 
-### roundTo.down(value, precision)
+### roundTo.down(number, precision)
 
 Round down the decimals with [`Math.floor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor).
 
-#### value
+#### number
 
 Type: `number`
 
@@ -54,7 +54,7 @@ Number to adjust.
 
 #### precision
 
-Type: `number` (integer)
+Type: `number` (Integer)
 
 Number of decimal places.
 
