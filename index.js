@@ -5,6 +5,10 @@ function round(method, number, precision) {
 		throw new TypeError('Expected value to be a number');
 	}
 
+	if (precision === Infinity) {
+		return number;
+	}
+
 	if (!Number.isInteger(precision)) {
 		throw new TypeError('Expected precision to be an integer');
 	}
