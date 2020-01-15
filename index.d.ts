@@ -5,7 +5,7 @@ declare const roundTo: {
 	Numbers are rounded to a specific number of fractional digits. Specifying a negative `precision` will round to any number of places to the left of the decimal.
 
 	@param number - Number to adjust.
-	@param precision - (Integer) Number of decimal places.
+	@param precision - (Integer or Infinity) Number of decimal places.
 
 	@example
 	```
@@ -24,7 +24,7 @@ declare const roundTo: {
 	Round up the decimals with [`Math.ceil`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil).
 
 	@param number - Number to adjust.
-	@param precision - (Integer) number of decimal places.
+	@param precision - (Integer or Infinity) number of decimal places.
 
 	@example
 	```
@@ -40,7 +40,7 @@ declare const roundTo: {
 	Round down the decimals with [`Math.floor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor).
 
 	@param number - Number to adjust.
-	@param precision - (Integer) number of decimal places.
+	@param precision - (Integer or Infinity) number of decimal places.
 
 	@example
 	```
