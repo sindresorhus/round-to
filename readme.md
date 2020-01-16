@@ -32,6 +32,13 @@ roundTo(1234.56, -2);
 //=> 1200
 ```
 
+Specifying an infinite `precision` will assume infinite decimal places.
+
+```js
+roundTo(0.1231782638, Infinity);
+//=> 0.1231782638
+```
+
 ## API
 
 ### roundTo(number, precision)
@@ -54,7 +61,7 @@ Number to adjust.
 
 #### precision
 
-Type: `number` (Integer)
+Type: `number` (Integer or Infinity)
 
 Number of decimal places.
 

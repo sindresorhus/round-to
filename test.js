@@ -11,6 +11,7 @@ test('roundTo()', t => {
 	t.is(roundTo(-0.375, 2), -0.38);
 	t.false(Number.isNaN(roundTo(10000000000000, 8)));
 	t.is(roundTo(0.37542323423423432432432432432, 8), 0.37542323);
+	t.is(roundTo(0.1231782638, Infinity), 0.1231782638);
 });
 
 test('roundTo.up()', t => {
