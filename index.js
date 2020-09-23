@@ -32,6 +32,6 @@ function round(method, number, precision) {
 	return result;
 }
 
-module.exports = round.bind(null, 'round');
-module.exports.up = round.bind(null, 'ceil');
-module.exports.down = round.bind(null, 'floor');
+module.exports = round.bind(undefined, 'round');
+module.exports.up = round.bind(undefined, 'ceil');
+module.exports.down = round.bind(undefined, 'floor');
