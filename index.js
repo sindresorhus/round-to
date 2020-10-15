@@ -18,9 +18,9 @@ function round(method, number, precision) {
 		number = Math.abs(number);
 	}
 
-	let power = Math.pow(10, precision);
+	const power = 10 ** precision;
 
-	let result = Math[method](+(number * power).toPrecision(15)) / power;
+	let result = Math[method](Number(number * power).toPrecision(15)) / power;
 
 	if (isRoundingAndNegative) {
 		result = -result;
