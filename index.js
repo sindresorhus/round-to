@@ -18,12 +18,9 @@ function round(method, number, precision) {
 		number = Math.abs(number);
 	}
 
-	let exponent;
-	[number, exponent] = `${number}e`.split('e');
-	let result = Math[method](`${number}e${Number(exponent) + precision}`);
+	const power = 10 ** precision;
 
-	[number, exponent] = `${result}e`.split('e');
-	result = Number(`${number}e${Number(exponent) - precision}`);
+	let result = Math[method](Number((number * power).toPrecision(15))) / power;
 
 	if (isRoundingAndNegative) {
 		result = -result;
