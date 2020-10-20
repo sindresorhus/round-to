@@ -4,13 +4,14 @@
 	"description": "Round a number to a specific number of decimal places: `1.234` → `1.2`",
 	"license": "MIT",
 	"repository": "sindresorhus/round-to",
+	"funding": "https://github.com/sponsors/sindresorhus",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
+		"url": "https://sindresorhus.com"
 	},
 	"engines": {
-		"node": ">=8"
+		"node": ">=10"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -31,8 +32,8 @@
 		"increment"
 	],
 	"devDependencies": {
-		"ava": "^1.4.1",
-		"tsd": "^0.7.2",
-		"xo": "^0.24.0"
+		"ava": "^2.4.0",
+		"tsd": "^0.13.1",
+		"xo": "^0.34.1"
 	}
 }

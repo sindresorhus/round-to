@@ -1,14 +1,12 @@
-# round-to [![Build Status](https://travis-ci.org/sindresorhus/round-to.svg?branch=master)](https://travis-ci.org/sindresorhus/round-to)
+# round-to [![Build Status](https://travis-ci.com/sindresorhus/round-to.svg?branch=master)](https://travis-ci.com/github/sindresorhus/round-to)
 
 > Round a number to a specific number of decimal places: `1.234` → `1.2`
-
 
 ## Install
 
 ```
 $ npm install round-to
 ```
-
 
 ## Usage
 
@@ -61,11 +59,6 @@ Number to adjust.
 
 #### precision
 
-Type: `number` (Integer or Infinity)
+Type: `number` *(Integer or infinity)*
 
 Number of decimal places.
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)

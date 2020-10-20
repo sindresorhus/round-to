@@ -10,7 +10,7 @@ test('roundTo()', t => {
 	t.is(roundTo(111.1, -2), 100);
 	t.is(roundTo(-0.375, 2), -0.38);
 	t.false(Number.isNaN(roundTo(10000000000000, 8)));
-	t.is(roundTo(0.37542323423423432432432432432, 8), 0.37542323);
+	t.is(roundTo(0.37542323423423432432432432432, 8), 0.37542323); // eslint-disable-line no-loss-of-precision
 	t.is(roundTo(0.1231782638, Infinity), 0.1231782638);
 	t.is(roundTo(0.597 / 6, 3), 0.1);
 });
@@ -30,7 +30,7 @@ test('roundTo.down()', t => {
 	t.is(roundTo.down(0.666, 3), 0.666);
 	t.is(roundTo.down(0.666, 2), 0.66);
 	t.is(roundTo.down(0.666, 1), 0.6);
-	t.is(roundTo.down(1.006, 2), 1.0);
+	t.is(roundTo.down(1.006, 2), 1);
 	t.is(roundTo.down(1.006, 0), 1);
 	t.is(roundTo.down(111.6, -2), 100);
 	t.is(roundTo.down(-0.375, 2), -0.38);
