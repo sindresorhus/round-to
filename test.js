@@ -36,10 +36,10 @@ test('roundTo.up()', t => {
 	t.is(roundTo.up(1e-8, 2), 0.01);
 	t.is(roundTo.up(5.12, 1), 5.2);
 	t.is(roundTo.up(-5.12, 1), -5.1);
-	t.is(roundTo.up(9.130, 2), 9.13);
-	t.is(roundTo.up(65.180, 2), 65.18);
-	t.is(roundTo.up(-2.260, 2), -2.26);
-	t.is(roundTo.up(-18.150, 2), -18.15);
+	t.is(roundTo.up(9.13, 2), 9.13);
+	t.is(roundTo.up(65.18, 2), 65.18);
+	t.is(roundTo.up(-2.26, 2), -2.26);
+	t.is(roundTo.up(-18.15, 2), -18.15);
 	t.is(roundTo.up((0.1 + 0.2) * 10, 0), 3);
 });
 
@@ -54,9 +54,9 @@ test('roundTo.down()', t => {
 	t.is(roundTo.down(1e-8, 2), 0);
 	t.is(roundTo.down(5.12, 1), 5.1);
 	t.is(roundTo.down(-5.12, 1), -5.2);
-	t.is(roundTo.down(-9.130, 2), -9.13);
-	t.is(roundTo.down(-65.180, 2), -65.18);
-	t.is(roundTo.down(2.260, 2), 2.26);
-	t.is(roundTo.down(18.150, 2), 18.15);
+	t.is(roundTo.down(-9.13, 2), -9.13);
+	t.is(roundTo.down(-65.18, 2), -65.18);
+	t.is(roundTo.down(2.26, 2), 2.26);
+	t.is(roundTo.down(18.15, 2), 18.15);
 	t.is(roundTo.down((0.1 + 0.7) * 10, 0), 8);
 });
