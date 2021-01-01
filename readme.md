@@ -1,4 +1,4 @@
-# round-to [![Build Status](https://travis-ci.com/sindresorhus/round-to.svg?branch=master)](https://travis-ci.com/github/sindresorhus/round-to)
+# round-to
 
 > Round a number to a specific number of decimal places: `1.234` → `1.2`
 
