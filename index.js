@@ -1,11 +1,9 @@
-'use strict';
-
 function round(method, number, precision) {
 	if (typeof number !== 'number') {
 		throw new TypeError('Expected value to be a number');
 	}
 
-	if (precision === Infinity) {
+	if (precision === Number.POSITIVE_INFINITY) {
 		return number;
 	}
 
@@ -29,6 +27,6 @@ function round(method, number, precision) {
 	return result;
 }
 
-module.exports = round.bind(undefined, 'round');
-module.exports.up = round.bind(undefined, 'ceil');
-module.exports.down = round.bind(undefined, 'floor');
+export const roundTo = round.bind(undefined, 'round');
+export const roundToUp = round.bind(undefined, 'ceil');
+export const roundToDown = round.bind(undefined, 'floor');

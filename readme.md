@@ -4,22 +4,22 @@
 
 ## Install
 
-```
-$ npm install round-to
+```sh
+npm install round-to
 ```
 
 ## Usage
 
 ```js
-const roundTo = require('round-to');
+import {roundTo, roundToUp, roundToDown} from 'round-to';
 
 roundTo(1.234, 2);
 //=> 1.23
 
-roundTo.up(1.234, 2);
+roundToUp(1.234, 2);
 //=> 1.24
 
-roundTo.down(1.234, 2);
+roundToDown(1.234, 2);
 //=> 1.23
 ```
 
@@ -43,11 +43,11 @@ roundTo(0.1231782638, Infinity);
 
 Round the decimals with [`Math.round`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round).
 
-### roundTo.up(number, precision)
+### roundToUp(number, precision)
 
 Round up the decimals with [`Math.ceil`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil).
 
-### roundTo.down(number, precision)
+### roundToDown(number, precision)
 
 Round down the decimals with [`Math.floor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor).
 
@@ -55,10 +55,10 @@ Round down the decimals with [`Math.floor`](https://developer.mozilla.org/en-US/
 
 Type: `number`
 
-Number to adjust.
+The number to adjust.
 
 #### precision
 
 Type: `number` *(Integer or infinity)*
 
-Number of decimal places.
+The number of decimal places.
