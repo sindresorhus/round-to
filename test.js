@@ -23,6 +23,10 @@ test('roundTo()', t => {
 	t.is(roundTo(1262.48, -1), 1260);
 	t.is(roundTo(1262.48, -2), 1300);
 	t.is(roundTo(0.597 / 6, 3), 0.1);
+	t.is(roundTo(6.578040334659363e-10, 6), 0);
+	t.is(roundTo(-6.578040334659363e-10, 6), -0);
+	t.is(roundTo(0, 1), 0);
+	t.is(roundTo(-0, 1), 0);
 });
 
 test('roundToUp()', t => {
@@ -41,6 +45,10 @@ test('roundToUp()', t => {
 	t.is(roundToUp(-2.26, 2), -2.26);
 	t.is(roundToUp(-18.15, 2), -18.15);
 	t.is(roundToUp((0.1 + 0.2) * 10, 0), 3);
+	t.is(roundToUp(6.578040334659363e-10, 6), 0.000001);
+	t.is(roundToUp(-6.578040334659363e-10, 6), -0);
+	t.is(roundToUp(0, 1), 0);
+	t.is(roundToUp(-0, 1), 0);
 });
 
 test('roundToDown()', t => {
@@ -59,4 +67,8 @@ test('roundToDown()', t => {
 	t.is(roundToDown(2.26, 2), 2.26);
 	t.is(roundToDown(18.15, 2), 18.15);
 	t.is(roundToDown((0.1 + 0.7) * 10, 0), 8);
+	t.is(roundToDown(6.578040334659363e-10, 6), 0);
+	t.is(roundToDown(-6.578040334659363e-10, 6), -0.000001);
+	t.is(roundToDown(0, 1), 0);
+	t.is(roundToDown(-0, 1), 0);
 });
