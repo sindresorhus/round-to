@@ -43,6 +43,9 @@ roundTo(0.1231782638, Infinity);
 
 Round the decimals with [`Math.round`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round).
 
+> [!TIP]
+> If you just need a string, `number.toFixed(precision)` is good enough.
+
 ### roundToUp(number, precision)
 
 Round up the decimals with [`Math.ceil`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil).
