@@ -2,6 +2,9 @@
 
 > Round a number to a specific number of decimal places: `1.234` → `1.2`
 
+> [!TIP]
+> If you only need a string, use `number.toFixed(precision)`.
+
 ## Install
 
 ```sh
@@ -42,9 +45,6 @@ roundTo(0.1231782638, Infinity);
 ### roundTo(number, precision)
 
 Round the decimals with [`Math.round`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round).
-
-> [!TIP]
-> If you just need a string, `number.toFixed(precision)` is good enough.
 
 ### roundToUp(number, precision)
 
