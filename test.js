@@ -87,3 +87,56 @@ test('special numeric values', t => {
 	t.is(roundToUp(Number.POSITIVE_INFINITY, 2), Number.POSITIVE_INFINITY);
 	t.is(roundToDown(Number.NEGATIVE_INFINITY, 2), Number.NEGATIVE_INFINITY);
 });
+
+test('roundingRule option', t => {
+	// Default behavior (away from zero)
+	t.is(roundTo(-0.5, 0), -1);
+	t.is(roundTo(-1.5, 0), -2);
+	t.is(roundTo(-1.005, 2), -1.01);
+
+	// ToNearestOrAwayFromZero (explicit default)
+	t.is(roundTo(5.5, 0, {roundingRule: 'toNearestOrAwayFromZero'}), 6);
+	t.is(roundTo(-5.5, 0, {roundingRule: 'toNearestOrAwayFromZero'}), -6);
+	t.is(roundTo(5.2, 0, {roundingRule: 'toNearestOrAwayFromZero'}), 5);
+	t.is(roundTo(-5.2, 0, {roundingRule: 'toNearestOrAwayFromZero'}), -5);
+
+	// ToNearestOrEven (banker's rounding)
+	t.is(roundTo(5.5, 0, {roundingRule: 'toNearestOrEven'}), 6);
+	t.is(roundTo(4.5, 0, {roundingRule: 'toNearestOrEven'}), 4);
+	t.is(roundTo(-5.5, 0, {roundingRule: 'toNearestOrEven'}), -6);
+	t.is(roundTo(-4.5, 0, {roundingRule: 'toNearestOrEven'}), -4);
+
+	// Up (toward +∞)
+	t.is(roundTo(5.2, 0, {roundingRule: 'up'}), 6);
+	t.is(roundTo(5.5, 0, {roundingRule: 'up'}), 6);
+	t.is(roundTo(-5.2, 0, {roundingRule: 'up'}), -5);
+	t.is(roundTo(-5.5, 0, {roundingRule: 'up'}), -5);
+
+	// Down (toward -∞)
+	t.is(roundTo(5.2, 0, {roundingRule: 'down'}), 5);
+	t.is(roundTo(5.5, 0, {roundingRule: 'down'}), 5);
+	t.is(roundTo(-5.2, 0, {roundingRule: 'down'}), -6);
+	t.is(roundTo(-5.5, 0, {roundingRule: 'down'}), -6);
+
+	// TowardZero (truncate)
+	t.is(roundTo(5.2, 0, {roundingRule: 'towardZero'}), 5);
+	t.is(roundTo(5.5, 0, {roundingRule: 'towardZero'}), 5);
+	t.is(roundTo(-5.2, 0, {roundingRule: 'towardZero'}), -5);
+	t.is(roundTo(-5.5, 0, {roundingRule: 'towardZero'}), -5);
+
+	// AwayFromZero
+	t.is(roundTo(5.2, 0, {roundingRule: 'awayFromZero'}), 6);
+	t.is(roundTo(5.5, 0, {roundingRule: 'awayFromZero'}), 6);
+	t.is(roundTo(-5.2, 0, {roundingRule: 'awayFromZero'}), -6);
+	t.is(roundTo(-5.5, 0, {roundingRule: 'awayFromZero'}), -6);
+
+	// Precision tests
+	t.is(roundTo(-1.005, 2, {roundingRule: 'up'}), -1);
+	t.is(roundTo(1.005, 2, {roundingRule: 'toNearestOrAwayFromZero'}), 1.01);
+
+	// Preserve -0 input
+	t.is(roundTo(-0, 1, {roundingRule: 'up'}), -0);
+
+	// Options handling
+	t.is(roundTo(-0.5, 0, {}), -1);
+});
