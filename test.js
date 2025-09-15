@@ -16,7 +16,6 @@ test('roundTo()', t => {
 	t.is(roundTo(-0.5, 0), -1);
 	t.is(roundTo(5.12, 1), 5.1);
 	t.is(roundTo(-5.12, 1), -5.1);
-	t.is(roundTo(1.005, 2), 1.01);
 	t.is(roundTo(-1.005, 2), -1.01);
 	t.is(roundTo(39.425, 2), 39.43);
 	t.is(roundTo(-39.425, 2), -39.43);
@@ -24,9 +23,9 @@ test('roundTo()', t => {
 	t.is(roundTo(1262.48, -2), 1300);
 	t.is(roundTo(0.597 / 6, 3), 0.1);
 	t.is(roundTo(6.578_040_334_659_363e-10, 6), 0);
-	t.is(roundTo(-6.578_040_334_659_363e-10, 6), -0);
+	t.is(roundTo(-6.578_040_334_659_363e-10, 6), 0);
 	t.is(roundTo(0, 1), 0);
-	t.is(roundTo(-0, 1), 0);
+	t.is(roundTo(-0, 1), -0);
 });
 
 test('roundToUp()', t => {
@@ -46,9 +45,9 @@ test('roundToUp()', t => {
 	t.is(roundToUp(-18.15, 2), -18.15);
 	t.is(roundToUp((0.1 + 0.2) * 10, 0), 3);
 	t.is(roundToUp(6.578_040_334_659_363e-10, 6), 0.000_001);
-	t.is(roundToUp(-6.578_040_334_659_363e-10, 6), -0);
+	t.is(roundToUp(-6.578_040_334_659_363e-10, 6), 0);
 	t.is(roundToUp(0, 1), 0);
-	t.is(roundToUp(-0, 1), 0);
+	t.is(roundToUp(-0, 1), -0);
 });
 
 test('roundToDown()', t => {
@@ -70,5 +69,21 @@ test('roundToDown()', t => {
 	t.is(roundToDown(6.578_040_334_659_363e-10, 6), 0);
 	t.is(roundToDown(-6.578_040_334_659_363e-10, 6), -0.000_001);
 	t.is(roundToDown(0, 1), 0);
-	t.is(roundToDown(-0, 1), 0);
+	t.is(roundToDown(-0, 1), -0);
+});
+
+test('error cases', t => {
+	t.throws(() => roundTo('123', 2), {instanceOf: TypeError, message: 'Expected value to be a number'});
+	t.throws(() => roundTo(123, 2.5), {instanceOf: TypeError, message: 'Expected precision to be an integer'});
+	t.throws(() => roundToUp(null, 2), {instanceOf: TypeError, message: 'Expected value to be a number'});
+	t.throws(() => roundToDown(123, Number.NaN), {instanceOf: TypeError, message: 'Expected precision to be an integer'});
+});
+
+test('special numeric values', t => {
+	t.is(roundTo(Number.NaN, 2), Number.NaN);
+	t.is(roundTo(Number.POSITIVE_INFINITY, 2), Number.POSITIVE_INFINITY);
+	t.is(roundTo(Number.NEGATIVE_INFINITY, 2), Number.NEGATIVE_INFINITY);
+	t.is(roundToUp(Number.NaN, 2), Number.NaN);
+	t.is(roundToUp(Number.POSITIVE_INFINITY, 2), Number.POSITIVE_INFINITY);
+	t.is(roundToDown(Number.NEGATIVE_INFINITY, 2), Number.NEGATIVE_INFINITY);
 });

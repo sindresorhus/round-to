@@ -11,6 +11,11 @@ function round(method, number, precision) {
 		throw new TypeError('Expected precision to be an integer');
 	}
 
+	// If the input is already -0, preserve it
+	if (Object.is(number, -0)) {
+		return number;
+	}
+
 	const isRoundingAndNegative = method === 'round' && number < 0;
 	if (isRoundingAndNegative) {
 		number = Math.abs(number);
@@ -22,6 +27,11 @@ function round(method, number, precision) {
 
 	if (isRoundingAndNegative) {
 		result = -result;
+	}
+
+	// Ensure rounding operations never return -0, always return 0
+	if (Object.is(result, -0)) {
+		result = 0;
 	}
 
 	return result;

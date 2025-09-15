@@ -62,6 +62,6 @@ The number to adjust.
 
 #### precision
 
-Type: `number` *(Integer or infinity)*
+Type: `number` *(Integer or Infinity)*
 
 The number of decimal places.
