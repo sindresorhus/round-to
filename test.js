@@ -140,3 +140,34 @@ test('roundingRule option', t => {
 	// Options handling
 	t.is(roundTo(-0.5, 0, {}), -1);
 });
+
+test('a large number is not rounded up by a whole unit by the noise removal', t => {
+	// These values have more than fifteen significant digits, so rounding them to fifteen
+	// threw the fraction away and the rounding ran on the wrong number. `100000000000001.5`
+	// became `100000000000002`, so flooring it stayed a whole unit too high.
+	for (const [value, whole] of [[100_000_000_000_001.5, 100_000_000_000_001], [100_000_000_000_001.75, 100_000_000_000_001], [400_000_000_000_001.5, 400_000_000_000_001]]) {
+		t.is(roundToDown(value, 0), whole, `roundToDown(${value}, 0)`);
+		t.is(roundToUp(value, 0), whole + 1, `roundToUp(${value}, 0)`);
+	}
+});
+
+test('toNearestOrEven only treats a real tie as a tie', t => {
+	// The tie tolerance scaled with the magnitude of the number, so at this size a
+	// fraction of `0.515625` counted as exactly halfway and was forced onto the even side.
+	t.is(roundTo(10_000_000_000_000.515_625, 0, {roundingRule: 'toNearestOrEven'}), 10_000_000_000_001);
+	t.is(roundTo(10_000_000_000_001.484_375, 0, {roundingRule: 'toNearestOrEven'}), 10_000_000_000_001);
+
+	// A genuine tie at the same size still goes to the even side.
+	t.is(roundTo(10_000_000_000_000.5, 0, {roundingRule: 'toNearestOrEven'}), 10_000_000_000_000);
+	t.is(roundTo(10_000_000_000_001.5, 0, {roundingRule: 'toNearestOrEven'}), 10_000_000_000_002);
+});
+
+test('a large integer is not changed by rounding to no decimal places', t => {
+	// `toPrecision(15)` cannot hold more than fifteen significant digits, so the integer
+	// digits of anything from about 1e15 up were truncated before the rounding ran.
+	for (const value of [2 ** 31, 2 ** 32, 2 ** 40, 2 ** 50, 1e21, 1.234_567_890_123_456_8e22, Number.MAX_SAFE_INTEGER]) {
+		t.is(roundTo(value, 0), value, `roundTo(${value}, 0)`);
+		t.is(roundToUp(value, 0), value, `roundToUp(${value}, 0)`);
+		t.is(roundToDown(value, 0), value, `roundToDown(${value}, 0)`);
+	}
+});

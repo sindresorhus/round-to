@@ -8,14 +8,14 @@ export type RoundingRule =
 
 export type Options = {
 	/**
-	The rounding rule to use.
+	The rounding rule to use after floating-point noise normalization.
 
 	@default 'toNearestOrAwayFromZero'
 
 	- `toNearestOrAwayFromZero` - Round to the closest value; if two values are equally close, the one with greater magnitude is chosen (traditional rounding).
 	- `toNearestOrEven` - Round to the closest value; if two values are equally close, the even one is chosen (banker's rounding).
-	- `up` - Round toward +∞ (always round up).
-	- `down` - Round toward -∞ (always round down).
+	- `up` - Round toward +∞.
+	- `down` - Round toward -∞.
 	- `towardZero` - Round toward zero (truncate).
 	- `awayFromZero` - Round away from zero.
 
@@ -35,7 +35,7 @@ export type Options = {
 	roundTo(4.5, 0, {roundingRule: 'toNearestOrEven'});
 	//=> 4
 
-	// Always round up (toward +∞)
+	// Round up (toward +∞)
 	roundTo(5.2, 0, {roundingRule: 'up'});
 	//=> 6
 	roundTo(-5.2, 0, {roundingRule: 'up'});
@@ -52,11 +52,13 @@ export type Options = {
 };
 
 /**
-Round the decimals with [`Math.round`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round) by default.
+Round the decimals with [`Math.round`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/round) by default, after floating-point noise normalization.
 
 Numbers are rounded to a specific number of fractional digits. Specifying a negative `precision` will round to any number of places to the left of the decimal. Specifying an infinite `precision` will assume infinite decimal places.
 
-You can specify different rounding rules using the `roundingRule` option. The default behavior rounds away from zero for 0.5 cases (traditional rounding), but you can use banker's rounding, always round up/down, or other rules.
+To suppress floating-point roundoff errors, the scaled value is normalized before rounding. Values extremely close to an integer or halfway boundary may be treated as lying exactly on that boundary. Consequently, rounding up or down does not guarantee an inequality relative to the original input.
+
+You can specify different rounding rules using the `roundingRule` option. The default behavior rounds away from zero for 0.5 cases (traditional rounding), but you can use banker's rounding, round up/down, or other rules.
 
 @param number - The number to adjust.
 @param precision - The number of decimal places. (Integer or Infinity)
@@ -79,7 +81,9 @@ roundTo(0.1231782638, Infinity);
 export function roundTo(number: number, precision: number, options?: Options): number;
 
 /**
-Round up the decimals with [`Math.ceil`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil).
+Round up the decimals with [`Math.ceil`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil), after floating-point noise normalization.
+
+To suppress floating-point roundoff errors, the scaled value is normalized before rounding. Values extremely close to an integer or halfway boundary may be treated as lying exactly on that boundary. Consequently, rounding up or down does not guarantee an inequality relative to the original input.
 
 @param number - The number to adjust.
 @param precision - The number of decimal places. (Integer or Infinity)
@@ -95,7 +99,9 @@ roundToUp(1.234, 2);
 export function roundToUp(number: number, precision: number): number;
 
 /**
-Round down the decimals with [`Math.floor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor).
+Round down the decimals with [`Math.floor`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor), after floating-point noise normalization.
+
+To suppress floating-point roundoff errors, the scaled value is normalized before rounding. Values extremely close to an integer or halfway boundary may be treated as lying exactly on that boundary. Consequently, rounding up or down does not guarantee an inequality relative to the original input.
 
 @param number - The number to adjust.
 @param precision - The number of decimal places. (Integer or Infinity)

@@ -1,8 +1,15 @@
+// Scaling by a power of ten adds floating point noise, so the scaled value is rounded to a
+// few significant digits past the last one that matters. Fifteen is the floor, because a
+// value with a small whole part needs that many to absorb the noise.
+function removeScalingNoise(value) {
+	const significantDigits = Math.max(15, Math.ceil(Math.log10(Math.abs(value))) + 3);
+	return Number.parseFloat(value.toPrecision(significantDigits));
+}
+
 function applyRoundingRule(method, number, power, roundingRule) {
 	// Handle different rounding rules for the 'round' method
 	if (method === 'round' && roundingRule) {
-		const scaledNumber = number * power;
-		const scaledPrecise = Number.parseFloat(scaledNumber.toPrecision(15));
+		const scaledPrecise = removeScalingNoise(number * power);
 
 		switch (roundingRule) {
 			case 'up': {
@@ -23,15 +30,11 @@ function applyRoundingRule(method, number, power, roundingRule) {
 
 			case 'toNearestOrEven': {
 				// Banker's rounding - check if we're at a tie (halfway between integers)
-				const fractionalPart = Math.abs(scaledPrecise - Math.trunc(scaledPrecise));
-				const epsilon = Number.EPSILON * Math.abs(scaledPrecise) * 8; // Scale epsilon with magnitude
-				const isHalfway = Math.abs(fractionalPart - 0.5) <= Math.max(epsilon, 1e-10);
-
-				if (isHalfway) {
+				// The noise is already gone, so the fraction has to be exactly one half.
+				if (Math.abs(scaledPrecise - Math.trunc(scaledPrecise)) === 0.5) {
 					// Round to nearest even integer
 					const floor = Math.floor(scaledPrecise);
-					const ceil = Math.ceil(scaledPrecise);
-					return (floor % 2 === 0 ? floor : ceil) / power;
+					return (floor % 2 === 0 ? floor : floor + 1) / power;
 				}
 
 				// Not a tie, use normal rounding
@@ -48,8 +51,7 @@ function applyRoundingRule(method, number, power, roundingRule) {
 	}
 
 	// For ceil/floor methods, use consistent scaling approach
-	const scaledPrecise = Number.parseFloat((number * power).toPrecision(15));
-	return Math[method](scaledPrecise) / power;
+	return Math[method](removeScalingNoise(number * power)) / power;
 }
 
 function round(method, number, precision, {roundingRule = 'toNearestOrAwayFromZero'} = {}) {
