@@ -2,8 +2,10 @@
 // few significant digits past the last one that matters. Fifteen is the floor, because a
 // value with a small whole part needs that many to absorb the noise.
 function removeScalingNoise(value) {
-	const significantDigits = Math.max(15, Math.ceil(Math.log10(Math.abs(value))) + 3);
-	return Number.parseFloat(value.toPrecision(significantDigits));
+	const order = Math.log10(Math.abs(value));
+	const significantDigits = Math.max(15, Math.ceil(order) + 3);
+	// `toPrecision()` always returns a complete number, so `Number()` and `parseFloat()` agree.
+	return Number(value.toPrecision(significantDigits));
 }
 
 function applyRoundingRule(method, number, power, roundingRule) {
@@ -43,9 +45,8 @@ function applyRoundingRule(method, number, power, roundingRule) {
 
 			default: {
 				// Traditional rounding - away from zero for 0.5
-				return scaledPrecise < 0
-					? -Math.round(Math.abs(scaledPrecise)) / power
-					: Math.round(scaledPrecise) / power;
+				const sign = scaledPrecise < 0 ? -1 : 1;
+				return sign * Math.round(Math.abs(scaledPrecise)) / power;
 			}
 		}
 	}
@@ -59,16 +60,15 @@ function round(method, number, precision, {roundingRule = 'toNearestOrAwayFromZe
 		throw new TypeError('Expected value to be a number');
 	}
 
-	// Handle non-finite values explicitly
-	if (!Number.isFinite(number)) {
-		return number; // NaN, Infinity, -Infinity pass through unchanged
-	}
-
-	if (precision === Number.POSITIVE_INFINITY) {
+	// A non-finite value, or a precision of `Infinity`, means there is nothing to round.
+	// Neither condition has a side effect, so the order does not matter.
+	if (precision === Infinity || !Number.isFinite(number)) {
 		return number;
 	}
 
-	if (!Number.isInteger(precision)) {
+	// A precision larger than `Number.MAX_SAFE_INTEGER` cannot produce a usable power of ten,
+	// so it is rejected instead of silently returning `NaN`.
+	if (!Number.isSafeInteger(precision)) {
 		throw new TypeError('Expected precision to be an integer');
 	}
 
